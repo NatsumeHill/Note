@@ -1,0 +1,8 @@
+digraph dot {
+    rankdir = LR;
+    node [shape = doublecircle] 5;
+    node [shape = circle];
+    0   ->  3   [label = "."];
+    3   ->  4   [label = "digit"];
+    3   ->  5   [label = "other"]
+}

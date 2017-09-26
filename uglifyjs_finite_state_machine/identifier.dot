@@ -1,0 +1,8 @@
+digraph G {
+    rankdir=LR;
+    node [shape = doublecircle]; 63;
+    node [shape = circle];
+    0   ->  62  [label = "identifier_start"];
+    62  ->  62  [label = "identifier_char"];
+    62  ->  63  [label = "other"];
+}

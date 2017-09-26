@@ -1,0 +1,20 @@
+digraph G {
+    rankdir = LR;
+    node [shape = doublecircle]; 11 12 13;
+    node [shape = circle];
+    // number
+    0   ->  4   [label = "digit"];
+    4   ->  4   [label = "digit"];
+    4   ->  6   [label = "."];
+    6   ->  7   [label = "digit"];
+    7   ->  7   [label = "digit"];
+    7   ->  8   [label = "e or E"];
+    4   ->  8   [label = "e or E"];
+    8   ->  9   [label = "- or +"];
+    9   ->  10  [label = "digit"];
+    8   ->  10  [label = "digit"];
+    10  ->  11  [label = "ohter"];
+    10  ->  10  [label = "digit"];
+    7   ->  12  [label = "ohter"];
+    4   ->  13  [label = "ohter"];
+}

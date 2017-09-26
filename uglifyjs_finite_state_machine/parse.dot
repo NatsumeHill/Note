@@ -1,0 +1,46 @@
+digraph G {
+    // splines="FALSE";
+    node [fontsize = 8, style=filled];
+    edge [fontsize = 8];
+    /* Entities */
+    node [shape="circle"]
+    toplevel [fillcolor="#3DB1FF"];
+    statement [label="statement", fillcolor="#FFAF7A"];
+    in_directives [label="in_directives", shape="diamond", fillcolor="#7ACAFF"];
+    simple_statement[];
+    name[label="is(\":\")?", shape="diamond"];
+    punc[];
+    block[];
+    empty[];
+    error[];
+    keyword[]
+    /* Relationships */
+    toplevel -> statement;
+    statement -> in_directives[label="is(string)"];
+    statement -> simple_statement[label="is(num | regexp | operator | atom)"];
+    statement -> name[label="is(name)"];
+    name -> labeled_statement[label="True"];
+    name ->simple_statement[label="False"];
+    statement -> punc[label="is(pun)"];
+    punc -> block[label="{"];
+    block -> statement[label="!is(\"punc\", \"}\")"];
+    punc -> simple_statement[label="[ | ("];
+    punc -> empty[label=";"];
+    punc -> error[label="other"];
+    statement -> keyword[label="is(keyword)"];
+    keyword -> break_count[label="break | continue"];
+    keyword -> debugger[label="debugger"];
+    keyword -> in_loop[label= "do | while"];
+    keyword -> for[label="for"];
+    keyword -> function[label="function"];
+    keyword -> if[label="if"];
+    keyword -> return[label="return"];
+    keyword -> switch[label="switch"];
+    keyword -> throw[label="throw"];
+    keyword -> try[label="try"];
+    keyword -> var[label="var"];
+    keyword -> with[label="with"];
+    keyword -> error[label="other"];
+    /* Ranks */
+    // { rank=|same,min,max,# max is bottom|; statement; };
+}

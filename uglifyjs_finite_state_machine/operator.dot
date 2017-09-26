@@ -1,0 +1,66 @@
+digraph G {
+    rankdir=LR;
+    node [shape = doublecircle]; 
+    15 16 18 19 21 22 24 25 26 28 29 32 33 34 37 38 39 43 44 45 46 47 48 51 52 53 54 57 58 59 60 61
+    node [shape = circle];
+    0   ->  14  [label = "+"];
+    14  ->  15  [label = "+"];
+    14  ->  16  [label = "other"];
+
+    0   ->  17  [label = "-"];
+    17  ->  18  [label = "-"];
+    17  ->  19  [label = "other"];
+
+    0   ->  20  [label = "*"];
+    20  ->  21  [label = "="];
+    20  ->  22  [label = "other"];
+
+    0   ->  23  [label = "&"];
+    23  ->  24  [label = "="];
+    23  ->  25  [label = "other"];
+    23  ->  26  [label = "&"];
+
+    0   ->  27  [label = "%"];
+    27  ->  28  [label = "="];
+    27  ->  29  [label = "other"];
+
+    0   ->  30  [label = "="];
+    30  ->  31  [label = "="];
+    31  ->  32  [label = "="];
+    30  ->  33  [label = "other"];
+    31  ->  34  [label = "other"];
+
+    0   ->  35  [label = "<"];
+    35  ->  36  [label = "<"];
+    36  ->  37  [label = "="];
+    35  ->  38  [label = "other"];
+    36  ->  39  [label = "other"];
+    
+    0   ->  40  [label = ">"];
+    40  ->  41  [label = ">"];
+    41  ->  42  [label = ">"];
+    40  ->  43  [label = "="];
+    41  ->  44  [label = "="];
+    42  ->  45  [label = "="];
+    40  ->  46  [label = "other"];
+    41  ->  47  [label = "other"];
+    42  ->  48  [label = "other"];
+
+    0   ->  49  [label = "!"];
+    49  ->  50  [label = "="];
+    50  ->  51  [label = "="];
+    49  ->  52  [label = "other"];
+    50  ->  53  [label = "other"];
+
+    0   ->  54  [label = "?"];
+
+    0   ->  55  [label = "|"];
+    55  ->  56  [label = "|"];
+    55  ->  57  [label = "="];
+    55  ->  58  [label = "other"];
+    56  ->  59  [label = "other"];
+
+    0   ->  60  [label = "~"];
+
+    0   ->  61  [label = "^"];
+}

@@ -1,0 +1,41 @@
+digraph finite_state_machine {
+    rankdir=LR;
+    node [shape = doublecircle]; 8 9 10 19 20 21;
+    node [shape = circle];
+    0 -> 1  [label = "\" or '"];
+    0 -> 2  [label = "."];
+    0 -> 3  [label = "/"];
+    0 -> 4  [label = "digit"];
+    0 -> 5  [label = "punctuation"];
+    0 -> 6  [label = "operator"];
+    0 -> 7  [label = "identifier_start"]
+
+    // 字符串
+    1 -> 1  [label = "other"];
+    1 -> 8  [label = "\\"];
+    1 -> 9  [label = "' or \""];
+
+    // dot
+    2 -> 10 [label = "other"];
+    2 -> 4  [label = "digit"];
+
+    // slash
+    3 -> 11 [label = "/"];
+    3 -> 12 [label = "*"];
+    3 -> 13 [label = "other"];
+
+    // number
+    4 -> 4  [label = "digit"];
+    4 -> 14 [label = "."];
+    14 -> 15    [label = "digit"];
+    15 -> 15    [label = "digit"];
+    15 -> 16    [label = "e or E"];
+    4 -> 16 [label = "e or E"];
+    16 -> 17    [label = "- or +"];
+    17 -> 18    [label = "digit"];
+    16 -> 18    [label = "digit"];
+    18 -> 19    [label = "ohter"];
+    4 -> 20 [label = "ohter"];
+    15 -> 21    [label = "ohter"];
+
+}
