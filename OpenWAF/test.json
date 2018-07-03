@@ -1,0 +1,26 @@
+{
+    "id": "1000002",
+    "release_version": "858",
+    "charactor_version": "001",
+    "disable": false,
+    "opts": {
+        "nolog": false
+    },
+    "phase": "access",
+    "action": "deny",
+    "meta": 403,
+    "severity": "high",
+    "rule_name": "ipcontrol",
+    "desc": "specific ip",
+    "match": [
+        {
+            "vars": [
+                {
+                    "var": "REMOTE_ADDR"
+                }
+            ],
+            "perator": "ip_utils",
+            "pf": "/tmp/ip_blacklist.txt"
+        }
+    ]
+}
