@@ -22,7 +22,6 @@ twaf_access_rule 涉及 ssl_certificate_by_lua ， rewrite_by_lua 和 balancer_b
                 "policy": "policy_uuid"            -- 安全策略 ID
             }
         ]
-    }
 }
 ```
 
