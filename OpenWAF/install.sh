@@ -13,12 +13,12 @@ cd /tmp
 command -v wget >/dev/null 2>&1 || { echo >&2 "I require wget but it's not installed.  Aborting."; }
 command -v git >/dev/null 2>&1 || { echo >&2 "I require git but it's not installed.  Aborting."; }
 
-if ![ -e /tmp/openssl-1.0.2k.tar.gz ]
+if [ ! -e "/tmp/openssl-1.0.2k.tar.gz" ]
 then
     wget -c http://www.openssl.org/source/openssl-1.0.2k.tar.gz
 fi
 
-if [-d /tmp/openssl-1.0.2k ]
+if [ -d "/tmp/openssl-1.0.2k" ]
 then
     rm -rf /tmp/openssl-1.0.2k
 fi
@@ -34,12 +34,12 @@ cd /tmp
 echo "======================="
 echo "Install pcre-jit"
 
-if ![ -e /tmp/pcre-8.40.tar.gz ]
+if [ ! -e "/tmp/pcre-8.40.tar.gz" ]
 then
     wget https://ftp.pcre.org/pub/pcre/pcre-8.40.tar.gz
 fi
 
-if [-d /tmp/pcre-8.40]
+if [ -d "/tmp/pcre-8.40"]
 then
     rm -rf /tmp/pcre-8.40
 fi
@@ -54,13 +54,13 @@ echo "Install OpenWAF"
 
 cd /tmp
 
-if ![ -e /tmp/openresty-1.11.2.2.tar.gz ]
+if [ ! -e "/tmp/openresty-1.11.2.2.tar.gz" ]
 then
     # default install dir is "/usr/local/openresty"
     wget https://openresty.org/download/openresty-1.11.2.2.tar.gz
 fi
 
-if [-d /tmp/openresty-1.11.2.2 ]
+if [ -d "/tmp/openresty-1.11.2.2" ]
 then
     rm -rf /tmp/openresty-1.11.2.2
 fi
@@ -68,7 +68,7 @@ tar -zxvf openresty-1.11.2.2.tar.gz
 
 cd /opt
 
-if [ -d /opt/OpenWAF ]
+if [ -d "/opt/OpenWAF" ]
 then
     rm -rf /opt/OpenWAF
 fi

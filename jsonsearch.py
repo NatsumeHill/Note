@@ -10,4 +10,4 @@ for env_hit in env_hits:
         if (env_hit.get("_source").get("deviceId") == prog_hit.get("_source").get("deviceId")) \
         and (env_hit.get("_source").get("appId") == prog_hit.get("_source").get("appId")) \
         and (env_hit.get("_source").get("userId") == prog_hit.get("_source").get("userId")):
-            print(env_hit.get("_id"), prog_hit.get("_id"),env_hit.get("_source").get("deviceId"), env_hit.get("_source").get("appId"), env_hit.get("_source").get("userId"))
+            print("env_id: ",env_hit.get("_id"), "prog_id: ", prog_hit.get("_id"),env_hit.get("_source").get("deviceId"), env_hit.get("_source").get("appId"), env_hit.get("_source").get("userId"))
