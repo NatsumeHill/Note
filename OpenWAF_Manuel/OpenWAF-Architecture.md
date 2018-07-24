@@ -88,34 +88,35 @@ init_by_lua_file         /opt/OpenWAF/app/twaf_init.lua
 ```
 使用twaf_init.lua进行初始化。而twaf_init.lua文件中创建一个twaf对象，该对象的类是模块```lib.twaf.twaf_core```导出的。在创建该对象的时候会传递参数twaf_config对象，该对象是twaf_config_m类的实例，由模块```lib.twaf.twaf_conf```导出。
 
-### lib.twaf.twaf_conf
+## OpenWAF类图
 
-用于解析接入规则，过滤规则等配置的模块，通过```load_default_config```方法导入默认配置；```load_access_rule```导入接入规则配置。```load_policy_config```方法导入策略。```load_rules```方法会导入系统规则知识库。最后```lib.twaf.twaf_conf```模块导出的类应该具有如下属性：
-```
-rules               -- 根据阶段分组后的规则
-rules_id            -- 所有有效的规则的ID
-disable_rules_id    -- 无效规则的ID  
-global_conf_uuid    -- 全局策略文件名
-twaf_default_conf   -- 默认配置策略
-twaf_policy         -- 所有导入的策略配置，除默认配置之外
-```
+## twaf_conf
 
-在nginx中配置的每个server都导入配置文件twaf_server.conf,该文件内容如下：
+该类主要功能为完成系统的参数配置，实现的方法有：
 
-```
-rewrite_by_lua_file       /opt/OpenWAF/app/twaf_rewrite.lua;
-access_by_lua_file        /opt/OpenWAF/app/twaf_access.lua;
-header_filter_by_lua_file /opt/OpenWAF/app/twaf_header_filter.lua;
-body_filter_by_lua_file   /opt/OpenWAF/app/twaf_body_filter.lua;
-log_by_lua_file           /opt/OpenWAF/app/twaf_log.lua;
+- load_default_config(self, path)：解析默认配置文件，在默认配置文件中，包含接入规则的相关配置项 *twaf_access_rule*。所以在导入配置文件时，会将接入规则单独提取出来，作为类的成员。类成员 *twaf_default_conf*不会包含 *twaf_access_rule*配置参数。除此之外，还会解析威胁分类，作为类的成员。
+- load_access_rule(self, path)：根据文件路径，读取接入规则。并将接入规则配置和已有的接入规则进行合并。
+- load_policy_config(self, path, policy_uuids)：加载policy_uuids表中的所有策略配置文件，policy_uuids的结构为{file_name=id}。path为策略文件的父目录。所有策略导入后保存在类成员 *twaf_policy*中。
+- rule_group_phase(self, tb, rules)：根据处理阶段进行分组。
+- load_rules(self)：导入规则文件。
+  
+主要成员：
 
-set $twaf_upstream_server "";
-set $twaf_attack_info     "";
-set $twaf_cache_flag       1;
-```
-前面五行通过调用lua在nginx的各个阶段进行处理，虽然这里都是不同的lua模块，但实际上都是调用twaf_core模块的run()方法进行处理。
+- rules：规则
+- rules_id：规则id
+- disable_rules_id：禁用的规则id
+- global_conf_uuid：全局配置文件
+- twaf_default_conf：默认配置
+- twaf_policy：策略
 
-### twaf_core.lua
+## twaf_core
 
-```twaf_core```类似于一个dispatcher，通过```ngx.get_phase()```获取当前HTTP请求在Nginx中所处的阶段。然后在不同的阶段，调用不同的模块对HTTP的连接进行过滤，分析。
+该类主要功能是负责在nginx的不同阶段调动不同的模块对发来的请求进行处理。类似于一个dispatcher。
 
+主要实现的方法有：
+
+- register_modules(self, modules)：模块注册，既是导入所有的模块，所有模块的应用放在modfactory这个table变量中。
+- get_default_config_param(self, param)：从默认配置文件中读取需要注册的所有模块。
+- get_config_param(self, param)：根据ngx.ctx 中保存的request.POLICYID导入指定配置策略的配置参数。
+- get_modules_config_param(self, modules, param)：根据ngx.ctx，中保存的request.POLICYID导入指定策略的模块参数。
+- run(self, _twaf)：twaf主要的连接处理函数，在nginx不同的阶段添加对应的过滤操作。
