@@ -120,3 +120,12 @@ init_by_lua_file         /opt/OpenWAF/app/twaf_init.lua
 - get_config_param(self, param)：根据ngx.ctx 中保存的request.POLICYID导入指定配置策略的配置参数。
 - get_modules_config_param(self, modules, param)：根据ngx.ctx，中保存的request.POLICYID导入指定策略的模块参数。
 - run(self, _twaf)：twaf主要的连接处理函数，在nginx不同的阶段添加对应的过滤操作。
+
+## twaf_access_rule
+
+该类主要功能是根据接入规则，选择是否进行请求转发，以及负载均衡。主要函数为：
+
+- handler(self, _twaf)：读取接入规则配置，实现请求转发。
+
+## twaf_secrules
+
