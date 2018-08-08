@@ -90,6 +90,8 @@ init_by_lua_file         /opt/OpenWAF/app/twaf_init.lua
 
 ## OpenWAF类图
 
+![类图](img/Class.jpg)
+
 ## twaf_conf
 
 该类主要功能为完成系统的参数配置，实现的方法有：
@@ -129,3 +131,26 @@ init_by_lua_file         /opt/OpenWAF/app/twaf_init.lua
 
 ## twaf_secrules
 
+规则引擎模块，该类主要根据系统规则库中的规则和用户定义规则进行请求分析拦截。主要函数为：
+
+- handler(self, _twaf)：根据连接的参数与规则进行匹配，看是否满足定义的规则。
+
+## operators
+
+该类为工具类，主要解析规则中的匹配操作。主要函数为：
+
+- operators(self, operator, subject, pattern, ctx)： 该函数实现了不同操作类别对请求信息处理的方式。
+
+该类在判断是否是sqli和xss时，借助了第三方开源库libinjection。
+
+## transform
+
+该类为工具类，主要对规则参数匹配前进行转化。主要函数为：
+
+- transforms(self, options, values)：该函数实现了不同转换类别对请求信息处理的方式。
+
+## twaf_anti_mal_crawler
+
+用于防恶意爬虫，防部分恶意扫描
+
+## twaf_anti_cc
